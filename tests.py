@@ -45,6 +45,11 @@ class PartyTestsDatabase(unittest.TestCase):
         # Connect to test database (uncomment when testing database)
         connect_to_db(app, "postgresql:///testdb")
 
+        with self.client as c:
+            with c.session_transaction() as sess:
+                import pdb; pdb.set_trace()
+                sess['RSVP'] = True
+
         # Create tables and add sample data (uncomment when testing database)
         db.create_all()
         example_data()
@@ -58,7 +63,7 @@ class PartyTestsDatabase(unittest.TestCase):
 
     def test_games(self):
         #FIXME: test that the games page displays the game from example_data()
-        result = self.client.get("/games")
+        result = self.client.get("/games", data={'session["RSVP"]': True})
         self.assertIn("Clue", result.data)
 
 
