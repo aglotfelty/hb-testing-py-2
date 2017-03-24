@@ -47,7 +47,6 @@ class PartyTestsDatabase(unittest.TestCase):
 
         with self.client as c:
             with c.session_transaction() as sess:
-                import pdb; pdb.set_trace()
                 sess['RSVP'] = True
 
         # Create tables and add sample data (uncomment when testing database)
